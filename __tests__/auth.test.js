@@ -34,6 +34,7 @@ describe('Auth Tests', () => {
     let encodedString = base64.encode(authString);
     let response = await mockRequest.post('/signin').set('Authorization', `Basic ${encodedString}`);
 
+    console.log(response.body);
     expect(response.status).toEqual(200);
     expect(response.body.username).toEqual('testusername');
   });
