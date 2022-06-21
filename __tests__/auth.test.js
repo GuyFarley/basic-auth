@@ -15,7 +15,7 @@ afterAll(async () => {
 
 describe('Auth Tests', () => {
 
-  test('allows a user to sign up with a POST to /signup', async () => {
+  test('Allows a user to sign up with a POST to /signup', async () => {
     let response = await mockRequest.post('/signup').send({
       username: 'testusername',
       password: 'testpassword',
@@ -26,6 +26,13 @@ describe('Auth Tests', () => {
     expect(response.body.username).toEqual('testusername');
     expect(response.body.password).toBeTruthy();
     expect(response.body.username).not.toEqual('testpassword');
+  });
+
+  test('Allows a user to log in with a POST to /signin', async () => {
+
+    console.log('Response Body', response.body);
+    expect(response.status).toEqual(200);
+
   });
 
 });
