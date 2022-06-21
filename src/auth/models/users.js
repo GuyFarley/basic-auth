@@ -2,12 +2,6 @@
 
 const bcrypt = require('bcrypt');
 
-
-// // allows attachment of a method to Users
-// Users.beforeCreate = (user) => {
-//   console.log(user);
-// };
-
 // Create a Sequelize model
 const UsersModel = (sequelize, DataTypes) => {
   const users = sequelize.define('User', {
@@ -35,6 +29,11 @@ const UsersModel = (sequelize, DataTypes) => {
     }
   };
   return users;
+};
+
+// allows attachment of a method to Users
+UsersModel.beforeCreate = (user) => {
+  console.log(user);
 };
 
 module.exports = UsersModel;
