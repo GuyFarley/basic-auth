@@ -1,11 +1,14 @@
 'use strict';
 
-const { start, sequelize } = require('./src/server');
+const { start } = require('./src/server');
+const { sequelize } = require('./src/auth/models/index');
 
+// make sure our tables are created, start up the HTTP server.
 sequelize.sync()
   .then(() => {
-    console.log('Successful Connection');
-  })
-  .catch(err => console.error(err));
+    console.log('Connected to DB');
+  }).catch(e => {
+    console.error('Could not start server', e.message);
+  });
 
 start();

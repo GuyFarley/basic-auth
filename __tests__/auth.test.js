@@ -1,6 +1,7 @@
 'use strict';
 
-const { server, sequelize } = require('../src/server');
+const { server } = require('../src/server');
+const { sequelize } = require('../src/auth/models');
 const base64 = require('base-64');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
@@ -28,11 +29,13 @@ describe('Auth Tests', () => {
     expect(response.body.username).not.toEqual('testpassword');
   });
 
-  test('Allows a user to log in with a POST to /signin', async () => {
+  test('Allows a user to sign in with the correct password', async () => {
+    let authString = 'testusername:testpassword';
+    let encodedString = base64.encode(authString);
+    let response = await mockRequest.post('/signin').set('Authorization', `Basic ${encodedString}`);
 
-    console.log('Response Body', response.body);
     expect(response.status).toEqual(200);
-
+    expect(response.body.username).toEqual('testusername');
   });
 
 });
